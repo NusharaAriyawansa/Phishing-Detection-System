@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Threat Analyzer - Phishing Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📧 EMAIL THREAT ANALYZER</h1>
+            <a href="/" class="back-link">← Return to Dashboard</a>
+        </header>
+
+        <div class="detector-form">
+            <h2>Email Security Assessment</h2>
+            <p>Provide email details for comprehensive phishing and threat analysis:</p>
+            
+            <form id="emailForm">
+                <div class="form-group">
+                    <label for="sender">Sender Address:</label>
+                    <input 
+                        type="email" 
+                        id="sender" 
+                        name="sender" 
+                        placeholder="sender@domain.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject Line:</label>
+                    <input 
+                        type="text" 
+                        id="subject" 
+                        name="subject" 
+                        placeholder="Email subject header"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="body">Message Content:</label>
+                    <textarea 
+                        id="body" 
+                        name="body" 
+                        rows="8"
+                        placeholder="Paste complete email body content for analysis..."
+                        required
+                    ></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Execute Analysis</button>
+            </form>
+        </div>
+
+        <div id="result" class="result hidden">
+            <h3>Threat Assessment Results</h3>
+            <div class="result-content">
+                <div class="email-info">
+                    <p><strong>From:</strong> <span id="resultSender"></span></p>
+                    <p><strong>Subject:</strong> <span id="resultSubject"></span></p>
+                </div>
+                
+                <div class="result-prediction">
+                    <div class="prediction-badge" id="predictionBadge">
+                        <span id="predictionText"></span>
+                    </div>
+                </div>
+                
+                <div class="result-details">
+                    <div class="detail-item">
+                        <strong>Detection Confidence:</strong>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill"></div>
+                        </div>
+                        <span id="confidenceText"></span>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Risk Classification:</strong>
+                        <span id="riskLevel" class="risk-badge"></span>
+                    </div>
+                </div>
+                
+                <div class="result-warning" id="warningBox">
+                    <strong>⚠ THREAT DETECTED</strong>
+                    <p>This email has been identified as a potential phishing attempt.</p>
+                    <ul>
+                        <li>Do NOT click any links contained within this message</li>
+                        <li>Do NOT download or open any attachments</li>
+                        <li>Do NOT provide credentials or personal information</li>
+                        <li>Report this message to your security operations team immediately</li>
+                    </ul>
+                </div>
+                
+                <div class="result-safe" id="safeBox">
+                    <strong>✓ VERIFIED SAFE</strong>
+                    <p>This email appears to be legitimate based on current analysis. However, always verify critical requests through official communication channels.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading hidden" id="loading">
+            <div class="spinner"></div>
+            <p>Performing security analysis...</p>
+        </div>
+
+        <div class="tips">
+            <h3>Phishing Email Identification Guidelines:</h3>
+            <ul>
+                <li>Exercise heightened scrutiny with messages containing urgent or threatening language designed to elicit immediate action</li>
+                <li>Carefully verify sender email addresses for slight variations or domain inconsistencies</li>
+                <li>Be suspicious of generic greetings such as "Dear Customer" or "Dear User" instead of personalized names</li>
+                <li>Never provide credentials, financial data, or PII in response to unsolicited email requests</li>
+                <li>Scrutinize messages for grammatical errors and unprofessional formatting inconsistent with legitimate correspondence</li>
+                <li>Inspect hyperlink destinations before clicking by hovering to reveal actual URLs</li>
+                <li>Independently verify unexpected requests through official organizational contact channels</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='email_detector.js') }}"></script>
+</body>
+</html>

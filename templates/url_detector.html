@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Threat Detector - Phishing Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 URL THREAT DETECTOR</h1>
+            <a href="/" class="back-link">← Return to Dashboard</a>
+        </header>
+
+        <div class="detector-form">
+            <h2>URL Security Analysis</h2>
+            <p>Submit a URL for comprehensive threat assessment and phishing detection:</p>
+            
+            <form id="urlForm">
+                <div class="form-group">
+                    <label for="url">Target URL:</label>
+                    <input 
+                        type="text" 
+                        id="url" 
+                        name="url" 
+                        placeholder="https://example.com/path"
+                        required
+                    >
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Execute Analysis</button>
+            </form>
+        </div>
+
+        <div id="result" class="result hidden">
+            <h3>Threat Assessment Results</h3>
+            <div class="result-content">
+                <div class="result-url">
+                    <strong>Analyzed URL:</strong> <span id="resultUrl"></span>
+                </div>
+                
+                <div class="result-prediction">
+                    <div class="prediction-badge" id="predictionBadge">
+                        <span id="predictionText"></span>
+                    </div>
+                </div>
+                
+                <div class="result-details">
+                    <div class="detail-item">
+                        <strong>Detection Confidence:</strong>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill"></div>
+                        </div>
+                        <span id="confidenceText"></span>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Risk Classification:</strong>
+                        <span id="riskLevel" class="risk-badge"></span>
+                    </div>
+                </div>
+                
+                <div class="result-warning" id="warningBox">
+                    <strong>⚠ THREAT DETECTED</strong>
+                    <p>This URL has been identified as a potential phishing attempt. Do NOT access this link or provide any credentials or personal information.</p>
+                </div>
+                
+                <div class="result-safe" id="safeBox">
+                    <strong>✓ VERIFIED SAFE</strong>
+                    <p>This URL appears to be legitimate based on current analysis. However, always exercise caution when providing sensitive information.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading hidden" id="loading">
+            <div class="spinner"></div>
+            <p>Performing security analysis...</p>
+        </div>
+
+        <div class="tips">
+            <h3>Phishing URL Identification Guidelines:</h3>
+            <ul>
+                <li>Verify domain spelling and watch for common typosquatting techniques (e.g., "paypa1.com" vs "paypal.com")</li>
+                <li>Exercise caution with suspicious TLDs such as .tk, .ml, .ga, .cf, .gq commonly used in phishing campaigns</li>
+                <li>Confirm HTTPS protocol and valid SSL certificates for sites requesting sensitive information</li>
+                <li>Avoid clicking shortened URLs (bit.ly, tinyurl) from untrusted sources without preview</li>
+                <li>Inspect for anomalous characters, excessive subdomains, or IP addresses in place of domain names</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='url_detector.js') }}"></script>
+</body>
+</html>
