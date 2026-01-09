@@ -39,7 +39,7 @@ An advanced phishing detection system that uses machine learning to identify phi
    pip install -r requirements.txt
    ```
 
-## 🏃 Quick Start
+## Quick Start
 
 ### 1. Train the Models
 
@@ -83,7 +83,7 @@ cd src
 python predict.py
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Phishing detection system/
@@ -118,7 +118,7 @@ Phishing detection system/
     └── email_detector.js
 ```
 
-## 📊 Features Extracted
+## Features Extracted
 
 ### URL Features (30+)
 
@@ -137,7 +137,7 @@ Phishing detection system/
 - **HTML Analysis**: Hidden content, forms, external images
 - **Text Metrics**: Uppercase ratio, punctuation, entropy
 
-## 🤖 Models
+## Models
 
 The system supports three types of machine learning models:
 
@@ -160,7 +160,7 @@ You can change the model type in the classifier initialization:
 classifier = URLPhishingClassifier(model_type='gradient_boosting')
 ```
 
-## 🔌 API Documentation
+## API Documentation
 
 ### Check URL Endpoint
 
@@ -227,207 +227,3 @@ classifier = URLPhishingClassifier(model_type='gradient_boosting')
   "email_classifier_loaded": true
 }
 ```
-
-## 💡 Examples
-
-### Python API Usage
-
-**URL Classification:**
-```python
-from src.url_classifier import URLPhishingClassifier
-
-# Load trained model
-classifier = URLPhishingClassifier()
-classifier.load_model('models/url_classifier.pkl')
-
-# Make prediction
-url = "http://suspicious-site.tk/login"
-prediction, confidence = classifier.predict(url)
-
-if prediction == 1:
-    print(f"⚠️ PHISHING (Confidence: {confidence:.2%})")
-else:
-    print(f"✓ LEGITIMATE (Confidence: {confidence:.2%})")
-```
-
-**Email Classification:**
-```python
-from src.email_classifier import EmailPhishingClassifier
-
-# Load trained model
-classifier = EmailPhishingClassifier()
-classifier.load_model('models/email_classifier.pkl')
-
-# Prepare email
-email = {
-    'subject': 'Account Verification Required',
-    'body': 'Click here to verify your account...',
-    'sender': 'security@suspicious.com',
-    'html': ''
-}
-
-# Make prediction
-prediction, confidence = classifier.predict(email)
-
-if prediction == 1:
-    print(f"⚠️ PHISHING EMAIL (Confidence: {confidence:.2%})")
-else:
-    print(f"✓ LEGITIMATE EMAIL (Confidence: {confidence:.2%})")
-```
-
-### Training with Custom Data
-
-```python
-from src.url_classifier import URLPhishingClassifier
-
-# Prepare your data
-urls = ["https://legitimate.com", "http://phishing.tk"]
-labels = [0, 1]  # 0 = legitimate, 1 = phishing
-
-# Train classifier
-classifier = URLPhishingClassifier(model_type='random_forest')
-metrics = classifier.train(urls, labels, test_size=0.2)
-
-# Save model
-classifier.save_model('models/custom_url_classifier.pkl')
-
-print(f"Test Accuracy: {metrics['test_accuracy']:.2%}")
-```
-
-## 🎯 How to Identify Phishing
-
-### URL Red Flags
-- Misspelled domain names (e.g., "paypa1.com")
-- Suspicious top-level domains (.tk, .ml, .ga, .cf, .gq)
-- IP addresses instead of domain names
-- Excessive use of special characters
-- URL shorteners from unknown sources
-
-### Email Red Flags
-- Urgent or threatening language
-- Requests for personal/financial information
-- Generic greetings ("Dear Customer")
-- Suspicious sender addresses
-- Spelling and grammar errors
-- Mismatched or suspicious links
-- Unexpected attachments
-
-## 🔧 Advanced Configuration
-
-### Adjust Model Parameters
-
-Edit the classifier initialization in `url_classifier.py` or `email_classifier.py`:
-
-```python
-self.model = RandomForestClassifier(
-    n_estimators=200,      # Increase for better accuracy
-    max_depth=25,          # Adjust tree depth
-    min_samples_split=10,  # Minimum samples to split
-    random_state=42,
-    n_jobs=-1
-)
-```
-
-### Add Custom Features
-
-Modify `feature_extraction.py` to add new features:
-
-```python
-def extract_features(self, url: str) -> Dict[str, float]:
-    features = {}
-    
-    # Add your custom feature
-    features['custom_feature'] = your_calculation(url)
-    
-    return features
-```
-
-## 📈 Performance Metrics
-
-Based on sample training data:
-
-| Metric | URL Classifier | Email Classifier |
-|--------|---------------|------------------|
-| Accuracy | ~95% | ~92% |
-| Precision | ~94% | ~90% |
-| Recall | ~96% | ~93% |
-| F1-Score | ~95% | ~91% |
-
-*Note: Performance depends on training data quality and quantity.*
-
-## 🛠️ Troubleshooting
-
-### Models Not Found Error
-```
-Error: Model file not found
-```
-**Solution:** Run `python src/train.py` to train and save the models first.
-
-### Import Errors
-```
-ModuleNotFoundError: No module named 'flask'
-```
-**Solution:** Install dependencies with `pip install -r requirements.txt`
-
-### Port Already in Use
-```
-OSError: [Errno 48] Address already in use
-```
-**Solution:** Change the port in `app.py` or kill the process using port 5000.
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### Ideas for Contribution
-- Add more feature extraction methods
-- Implement deep learning models
-- Add support for more data formats
-- Improve the web interface
-- Add email attachment analysis
-- Create browser extension
-
-## 📝 License
-
-This project is created for educational purposes. Feel free to use and modify as needed.
-
-## ⚠️ Disclaimer
-
-This tool is designed to assist in identifying potential phishing attempts but should not be the only line of defense. Always exercise caution with:
-- Suspicious emails and links
-- Requests for personal information
-- Unexpected attachments
-- Urgent financial requests
-
-When in doubt, verify through official channels.
-
-## 📞 Support
-
-For issues, questions, or suggestions:
-- Open an issue on the repository
-- Check existing documentation
-- Review the troubleshooting section
-
-## 🙏 Acknowledgments
-
-- Scikit-learn for machine learning tools
-- Flask for the web framework
-- The cybersecurity community for phishing awareness
-
-## 📚 Further Reading
-
-- [APWG Phishing Activity Trends Report](https://apwg.org/)
-- [Anti-Phishing Best Practices](https://www.cisa.gov/phishing)
-- [Scikit-learn Documentation](https://scikit-learn.org/)
-
----
-
-**Stay Safe Online! 🛡️**
-
-Made with ❤️ for cybersecurity education
